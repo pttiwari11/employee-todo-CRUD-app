@@ -1,9 +1,13 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+//import moment from "moment";
 
 const PORT = process.env.PORT || 8000;
+
+/*
+function to create new task
+*/
 
 const AddTask = () => {
   const [title, setTitle] = React.useState("");
@@ -16,7 +20,7 @@ const AddTask = () => {
   const [error, setError] = React.useState(false);
 
   const addTask = async () => {
-    if (
+    if (                                         
       !title ||
       !description ||
       !starttime ||
@@ -28,6 +32,8 @@ const AddTask = () => {
       return false;
     }
 
+    {/*posting your input data to the database */}
+    
     let result = await fetch(`http://localhost:${PORT}/add-task`, {
       method: "post",
       body: JSON.stringify({ title, description, starttime, endtime, priority, status }),
@@ -40,13 +46,12 @@ const AddTask = () => {
   };
 
   const handleStartTimeChange = (e) => {
-    const startDate = moment(e);
+    const startDate = e;
     setStartTime(startDate);
-
   }
 
   const handleEndTimeChange = (e) => {
-    const endDate = moment(e);
+    const endDate = e;
     setEndTime(endDate);
   };
 
@@ -86,7 +91,8 @@ const AddTask = () => {
         timeFormat="HH:mm"
         timeIntervals={20}
         timeCaption="time"
-        dateFormat="dd/MM/yyyy, h:mm"
+        dateFormat="dd/MM/yyyy, h:mm a"
+        className="inputBox"
       />
       {error && !starttime && (
         <span className="invalid-input">Enter valid date & time</span>
@@ -99,7 +105,8 @@ const AddTask = () => {
         timeFormat="HH:mm"
         timeIntervals={20}
         timeCaption="time"
-        dateFormat="dd/MM/yyyy, h:mm"
+        dateFormat="dd/MM/yyyy, h:mm a"
+        className="inputBox"
       />
       {error && !endtime && (
         <span className="invalid-input">Enter valid date & time</span>

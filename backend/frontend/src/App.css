@@ -118,6 +118,11 @@
   margin: 20px;
 }
 
+.inputdateBox {
+  border: 1px solid skyblue;
+  width: 300px;
+}
+
 .appButton {
   margin: 20px;
   width: 150px;

@@ -21,7 +21,7 @@ app.get("/tasks", async (req, resp) => {
   if (tasks.length > 0) {
     resp.send(tasks);
   } else {
-    resp.send({ result: "No Notion found" });
+    resp.send({ result: "No Task found" });
   }
 });
 

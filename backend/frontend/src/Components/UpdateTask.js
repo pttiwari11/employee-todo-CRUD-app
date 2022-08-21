@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// import moment from  "moment";
 
 const PORT = process.env.PORT || 8000;
 
+/* UpdateTask function for updating the task details */
 const UpdateTask = () => {
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
-    const [starttime, setStartTime] = React.useState("");
-    const [endtime, setEndTime] = React.useState("");
+    const [starttime, setStartTime] = React.useState(new Date());
+    const [endtime, setEndTime] = React.useState(new Date());
     const [priority, setPriority] = React.useState("");
     const [status, setStatus] = React.useState("");
     const params = useParams();
@@ -17,18 +21,18 @@ const UpdateTask = () => {
       getTaskDetails();
     }, []);
 
+    {/* this function is fetching task details from database using id provided in the url */}
     const getTaskDetails = async () => {
       console.warn(params);
       let result = await fetch(`http://localhost:${PORT}/task/${params.id}`);
       result = await result.json();
       setTitle(result.title);
       setDescription(result.description);
-      setStartTime(result.starttime);
-      setEndTime(result.endtime);
       setPriority(result.priority);
-      setStatus(result.Status);
+      setStatus(result.status);
     };
 
+    {/* this function is updating the details of task on button click */}
     const updateTask = async () => {
       console.warn(title, description, starttime, endtime, priority, status);
       let result = await fetch(`http://localhost:${PORT}/task/${params.id}`, {
@@ -49,6 +53,16 @@ const UpdateTask = () => {
       if (result) {
         navigate("/");
       }
+    };
+
+    const handleStartTimeChange = (e) => {
+      const startDate = (e);
+      setStartTime(startDate);
+    };
+
+    const handleEndTimeChange = (e) => {
+      const endDate = (e);
+      setEndTime(endDate);
     };
 
     return (
@@ -74,24 +88,26 @@ const UpdateTask = () => {
           }}
         />
 
-        <input
-          type="text"
-          placeholder="Enter start date & time"
+        <DatePicker
+          selected={starttime}
+          onChange={(e) => handleStartTimeChange(e)}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={20}
+          timeCaption="time"
+          dateFormat="dd/MM/yyyy, h:mm a"
           className="inputBox"
-          value={starttime}
-          onChange={(e) => {
-            setStartTime(e.target.value);
-          }}
         />
 
-        <input
-          type="text"
-          placeholder="Enter end date & time"
+        <DatePicker
+          selected={endtime}
+          onChange={(e) => handleEndTimeChange(e)}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={20}
+          timeCaption="time"
+          dateFormat="dd/MM/yyyy, h:mm a"
           className="inputBox"
-          value={endtime}
-          onChange={(e) => {
-            setEndTime(e.target.value);
-          }}
         />
 
         <input

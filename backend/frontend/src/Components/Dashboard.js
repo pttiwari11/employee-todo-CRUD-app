@@ -1,8 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import moment from "moment";
+//import moment from "moment";
 
 const PORT = process.env.PORT || 8000
+
+{/* Dashboard showing all the tasks */}
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -11,6 +13,7 @@ const Dashboard = () => {
     getTasks();
   }, []);
 
+  {/* getTasks function fetch all the tasks stored in the database */}
   const getTasks = async () => {
     let result = await fetch(`http://localhost:${PORT}/tasks`);
     result = await result.json();
@@ -18,6 +21,7 @@ const Dashboard = () => {
     setTasks(result);
   };
 
+  {/* deleteTask function will delete the task on click from dashboard as well as from databse */}
   const deleteTask = async (id) => {
     console.warn(id);
     let result = await fetch(`http://localhost:${PORT}/task/${id}`, {
@@ -29,6 +33,7 @@ const Dashboard = () => {
     }
   };
 
+  {/* function to search your task present on the dashboard */}
   const searchHandle = async (event) => {
     let key = event.target.value;
     if (key) {
