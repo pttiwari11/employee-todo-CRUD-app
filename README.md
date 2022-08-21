@@ -27,3 +27,11 @@ in frontend directory run
 ## npm start
 
 this will start frontend on 3000 port
+
+# Technology used
+
+## Frontend : HTML, CSS, JS, REACT
+## Backend : Node.js, ExpressJs
+## Database : MongoDb Atlas
+
+# Working Link : https://employee-todo-crud-app.herokuapp.com/
