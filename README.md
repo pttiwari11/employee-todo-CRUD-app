@@ -16,12 +16,14 @@ this will install the dependencies required for backend
 
 this will install all the required dependencies for frontend
 
-in backend directory run 
-##nodemon
+in backend directory run
+
+## nodemon
 
 this will start backend on 8000 port
 
-in frontend directory run 
-##npm start
+in frontend directory run
+
+## npm start
 
 this will start frontend on 3000 port
